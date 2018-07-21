@@ -19,6 +19,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
@@ -58,6 +59,8 @@ import com.google.android.gms.location.LocationListener;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,
         GoogleMap.OnInfoWindowClickListener,GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener, LocationListener {
+
+    private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
 
     private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 1000;
     private static final int REQUEST_LOCATION = 0;
@@ -154,7 +157,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 if(marker!=null){
                     marker.remove();
                 }
-                marker = mMap.addMarker(new MarkerOptions().position(latLngLoc).title(place.getName().toString()));
+                marker = mMap.addMarker(new MarkerOptions().position(latLngLoc)
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.iconww))
+                        .title(place.getName().toString()));
 //                mMap.animateCamera(CameraUpdateFactory.zoomTo(12), 2000, null);
                 CameraUpdate update = CameraUpdateFactory.newLatLngZoom(latLngLoc, 18);
                 mMap.moveCamera(update);
@@ -268,6 +273,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         mGoogleApiClient.connect();
 
+        enableMyLocation();
+
         displayLocation();
 
 
@@ -281,9 +288,22 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.getUiSettings().isCompassEnabled();
         mMap.getUiSettings().isZoomControlsEnabled();
         mMap.getUiSettings().setCompassEnabled(true);
+//        mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
 
 
 
+    }
+
+    private void enableMyLocation() {
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            // Permission to access the location is missing.
+            PermissionUtils.requestPermission(this, LOCATION_PERMISSION_REQUEST_CODE,
+                    android.Manifest.permission.ACCESS_FINE_LOCATION, true);
+        } else if (mMap != null) {
+            // Access to the location has been granted to the app.
+            mMap.setMyLocationEnabled(true);
+        }
     }
 
     Marker mk = null;
@@ -298,7 +318,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             //Set Custom BitMap for Pointer
             int height = 110;
             int width = 50;
-            BitmapDrawable bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.mipmap.icon_car);
+            BitmapDrawable bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.mipmap.icon_biker);
             Bitmap b = bitmapdraw.getBitmap();
             Bitmap smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
             mMap = googleMap;
