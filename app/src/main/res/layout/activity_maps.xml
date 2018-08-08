@@ -7,18 +7,49 @@
     tools:context=".MapsActivity"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!--<com.google.android.gms.ads.AdView-->
+        <!--xmlns:ads="http://schemas.android.com/apk/res-auto"-->
+        <!--android:id="@+id/adView"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:layout_alignParentBottom="true"-->
 
-<fragment
-    android:id="@+id/map"
-    android:name="com.google.android.gms.maps.SupportMapFragment"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    />
+        <!--ads:adSize="SMART_BANNER"-->
+        <!--ads:adUnitId="@string/banner_ad_unit_id" />-->
+
+
+    <fragment
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginRight="9dp"
+        android:layout_marginTop="112dp"
+        android:layout_gravity="right"
+        android:src="@drawable/maxresdefaultsat"
+        android:onClick="satellitemaps"/>
+
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="60dp"
+        android:layout_gravity="right"
+        android:layout_marginRight="9dp"
+        android:src="@drawable/maxresdefault"
+        android:onClick="normalmaps"/>
 
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="60dp"
+        android:layout_marginEnd="100dp"
         android:layout_marginStart="54dp"
         android:layout_gravity="bottom">
 
@@ -54,6 +85,7 @@
         map:layout_anchor="@+id/map"
         map:layout_anchorGravity="left|bottom"
         android:onClick="StartGPS"/>
+
 
 
 </android.support.design.widget.CoordinatorLayout>

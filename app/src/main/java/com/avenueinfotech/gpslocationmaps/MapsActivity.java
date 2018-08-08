@@ -26,6 +26,10 @@ import android.view.animation.LinearInterpolator;
 import android.widget.Toast;
 
 import com.avenueinfotech.gpslocationmaps.utils.GPSTracker;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -85,9 +89,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
 
-//    private AdView mAdView;
+    private AdView mAdView;
 //
-//    private InterstitialAd mInterstitialAd;
+    private InterstitialAd mInterstitialAd;
 
     public final int REQUEST_ID_MULTIPLE_PERMISSIONS = 1;
 
@@ -103,7 +107,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         setContentView(R.layout.activity_maps);
 //        setContentView(R.layout.activity_maps);
-//        MobileAds.initialize(getApplicationContext(), "ca-app-pub-1183672799205641~2981952761");
+        MobileAds.initialize(getApplicationContext(), "ca-app-pub-1183672799205641~3079894410");
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
@@ -188,9 +192,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //        mInterstitialAd = new InterstitialAd(this);
 //        mInterstitialAd.setAdUnitId("ca-app-pub-1183672799205641/8564096630");
 
-//        mInterstitialAd = new InterstitialAd(this);
-//        mInterstitialAd.setAdUnitId("ca-app-pub-1183672799205641/8564096630");
-//        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId("ca-app-pub-1183672799205641/4663921905");
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
 
     }
 
@@ -288,7 +292,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.getUiSettings().isCompassEnabled();
         mMap.getUiSettings().isZoomControlsEnabled();
         mMap.getUiSettings().setCompassEnabled(true);
-//        mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+        mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
 
 
 
@@ -573,6 +577,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         startLocationUpdates();
     }
 
+    public void normalmaps(View v) {
+        mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+    }
+
+    public void satellitemaps(View view) {
+        mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+    }
+
     private interface LatLngInterpolator {
         LatLng interpolate(float fraction, LatLng a, LatLng b);
 
@@ -603,22 +615,28 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public void onBackPressed() {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(MapsActivity.this);
-        builder.setMessage("Do you want to Quit?");
-        builder.setCancelable(true);
-        builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.cancel();
-            }
-        });
-        builder.setPositiveButton("Quit!", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                finish();
-            }
-        });
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();
+
+        if (mInterstitialAd.isLoaded()) {
+            mInterstitialAd.show();
+        } else {
+
+            final AlertDialog.Builder builder = new AlertDialog.Builder(MapsActivity.this);
+            builder.setMessage("Do you want to Quit?");
+            builder.setCancelable(true);
+            builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.cancel();
+                }
+            });
+            builder.setPositiveButton("Quit!", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    finish();
+                }
+            });
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
+        }
     }
 }
