@@ -177,11 +177,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
 //        // Load an ad into the AdMob banner view.
-//        adView = (AdView) findViewById(R.id.adView);
+//        mAdView = (AdView) findViewById(R.id.adView);
 //
 //        AdRequest adRequest = new AdRequest.Builder()
 //                .setRequestAgent("android_studio:ad_template").build();
-//        adView.loadAd(adRequest);
+//        mAdView.loadAd(adRequest);
 //
 
 //        mAdView = findViewById(R.id.adView);
@@ -191,6 +191,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 //        mInterstitialAd = new InterstitialAd(this);
 //        mInterstitialAd.setAdUnitId("ca-app-pub-1183672799205641/8564096630");
+
+        mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
 
         mInterstitialAd = new InterstitialAd(this);
         mInterstitialAd.setAdUnitId("ca-app-pub-1183672799205641/4663921905");

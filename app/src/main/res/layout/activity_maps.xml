@@ -7,16 +7,7 @@
     tools:context=".MapsActivity"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <!--<com.google.android.gms.ads.AdView-->
-        <!--xmlns:ads="http://schemas.android.com/apk/res-auto"-->
-        <!--android:id="@+id/adView"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_centerHorizontal="true"-->
-        <!--android:layout_alignParentBottom="true"-->
 
-        <!--ads:adSize="SMART_BANNER"-->
-        <!--ads:adUnitId="@string/banner_ad_unit_id" />-->
 
 
     <fragment
@@ -25,16 +16,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:layout_marginRight="9dp"
-        android:layout_marginTop="112dp"
-        android:layout_gravity="right"
-        android:src="@drawable/maxresdefaultsat"
-        android:onClick="satellitemaps"/>
+    <com.google.android.gms.ads.AdView
+        xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
 
+        ads:adSize="SMART_BANNER"
+        ads:adUnitId="@string/banner_ad_unit_id" />
 
     <ImageView
         android:id="@+id/imageView2"
@@ -45,6 +36,45 @@
         android:layout_marginRight="9dp"
         android:src="@drawable/maxresdefault"
         android:onClick="normalmaps"/>
+
+    <TextView
+        android:id="@+id/normal"
+        android:layout_width="45dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginRight="9dp"
+        android:layout_marginTop="102dp"
+        android:fontFamily="sans-serif-condensed"
+        android:text="Normal"
+        android:textAlignment="center"
+        android:textColor="@android:color/holo_orange_dark"
+        android:textSize="12sp" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginRight="9dp"
+        android:layout_marginTop="122dp"
+        android:layout_gravity="right"
+        android:src="@drawable/maxresdefaultsat"
+        android:onClick="satellitemaps"/>
+
+    <TextView
+        android:id="@+id/sat"
+        android:layout_width="47dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginRight="9dp"
+        android:layout_marginTop="162dp"
+        android:text="Satellite"
+        android:textAlignment="center"
+        android:textColor="@android:color/holo_orange_dark"
+        android:textSize="12sp" />
+
+
+
+
 
     <RelativeLayout
         android:layout_width="wrap_content"
